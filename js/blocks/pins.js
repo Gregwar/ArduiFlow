@@ -57,7 +57,9 @@ blocks.register({
 
         env.setup += 'pinMode(' + pin + ', OUTPUT);\n';
 
-        env.loop += 'digitalWrite(' + pin + ', ' + env.getInput(block, 'Input') + ');\n';
+        if (env.hasInput(block, 'Input')) {
+            env.loop += 'digitalWrite(' + pin + ', ' + env.getInput(block, 'Input').name + ');\n';
+        }
     }
 });
 
@@ -111,6 +113,8 @@ blocks.register({
 
         env.setup += 'pinMode(' + pin + ', PWM);\n';
 
-        env.loop += 'analogWrite(' + pin + ', ' + env.getInput(block, 'Duty') + ');\n';
+        if (env.hasInput(block, 'Duty')) {
+            env.loop += 'analogWrite(' + pin + ', ' + env.getInput(block, 'Duty').name + ');\n';
+        }
     }
 });

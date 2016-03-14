@@ -70,14 +70,26 @@ Environment.prototype.setEdgeValue = function(edge, variable)
             if (!(key in this.edgeValues)) {
                 this.edgeValues[key] = [];
             }
-                
-            this.edgeValues[key].push(variable.to(this.getType(field.type)));
+           
+            this.edgeValues[key].push(variable);
         } else {
             if (!(key in this.edgeValues)) {
-                this.edgeValues[key] = variable.to(this.getType(field.type));
+                this.edgeValues[key] = variable;
             }
         }
     }
+};
+
+Environment.prototype.hasInput = function(block)
+{
+    for (var k=1; k<arguments.length; k++) {
+        var key = block.id+'/'+arguments[k].toLowerCase();
+        if (!(key in this.edgeValues)) {
+            return false;
+        }
+    }
+    
+    return true;
 };
 
 Environment.prototype.getInput = function(block, name)
@@ -89,4 +101,29 @@ Environment.prototype.getInput = function(block, name)
     } else {
         return null;
     }
+};
+
+Environment.prototype.guessType = function(block)
+{
+    for (var k in block.edges) {
+        for (var n in block.edges[k]) {
+            var edge = block.edges[k][n];
+            if (edge.block2 == block) {
+                var key = block.id+'/'+edge.connector2.name.toLowerCase();
+                if (key in this.edgeValues) {
+                    var values = this.edgeValues[key];
+
+                    if (values instanceof Array || values instanceof Object) {
+                        for (var x in values) {
+                            if (values[x].type != 'int') return 'number';
+                        }
+                    } else {
+                        if (values.type != 'int') return 'number';
+                    }
+                }
+            }
+        }
+    }
+
+    return 'int';
 };

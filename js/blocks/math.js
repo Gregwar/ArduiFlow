@@ -46,16 +46,17 @@ blocks.register({
         {
             name: "Terms",
             attrs: "input",
-            type: "bool"
+            type: "number"
         },
         {
             name: "Sum",
             attrs: "output",
-            type: "bool"
+            type: "number"
         }
     ],
     generate: function(block, env) {
         var v = env.getFieldVariable(block, 'Sum');
+        v.type = env.guessType(block);
         var inputs = env.getInput(block, 'Terms');
 
         if (inputs.length == 0) {
@@ -63,6 +64,32 @@ blocks.register({
         } else {
             env.loop += v.name + '= '+inputs.join(' + ')+';\n';
         }
+    }
+});
+
+
+blocks.register({
+    name: "Min",
+    family: "Math",
+    description: "Minimum",
+    size: "small",
+    fields: [
+        {
+            name: "Values",
+            attrs: "input",
+            type: "number"
+        },
+        {
+            name: "Min",
+            attrs: "output",
+            type: "number"
+        }
+    ],
+    generate: function(block, env) {
+        var v = env.getFieldVariable(block, 'Min');
+        v.type = env.guessType(block);
+        alert(v.type);
+        var inputs = env.getInput(block, 'Values');
     }
 });
 

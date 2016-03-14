@@ -22,3 +22,8 @@ Variable.prototype.codeType = function()
 
     return this.type;
 };
+
+Variable.prototype.toString = function()
+{
+    return this.name;
+};

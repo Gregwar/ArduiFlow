@@ -6,11 +6,13 @@ blocks.register({
     fields: [
         {
             name: "A",
+            card: "1",
             attrs: "input",
             type: "number"
         },
         {
             name: "B",
+            card: "1",
             attrs: "input",
             type: "number"
         },
@@ -24,7 +26,9 @@ blocks.register({
     generate: function(block, env) {
         var v = env.getFieldVariable(block, 'Smaller');
 
-        env.loop += v.name + '= ' + env.getInput(block, 'A') + '<' + env.getInput(block, 'B')+';\n';
+        if (env.hasInput(block, 'A', 'B')) {
+            env.loop += v.name + '= ' + env.getInput(block, 'A').name + '<' + env.getInput(block, 'B').name+';\n';
+        }
     }
 });
 
@@ -52,7 +56,7 @@ blocks.register({
         if (inputs.length == 0) {
             env.loop += v.name + '= false;\n';
         } else {
-            env.loop += v.name + '= '+inputs.join(' && ')+';\n';
+            env.loop += v.name + '= '+inputs.join(' && ').to('bool')+';\n';
         }
     }
 });
