@@ -9,6 +9,7 @@
     include('pins.js');
     include('logic.js');
     include('print.js');
+    include('math.js');
 
     // Types compatibilities
     blocks.types.addCompatibility('bool', 'int');

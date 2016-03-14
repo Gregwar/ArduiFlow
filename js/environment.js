@@ -18,7 +18,7 @@ Environment.prototype.getCode = function()
     code += 'void loop() {\n';
     for (var k in this.variables) {
         var variable = this.variables[k];
-        code += variable.type+' '+variable.name+';\n';
+        code += variable.codeType()+' '+variable.name+';\n';
     }
     code += '\n';
     code += this.loop;

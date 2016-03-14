@@ -15,3 +15,10 @@ Variable.prototype.to = function(target)
     result += this.name;
     return result;
 };
+
+Variable.prototype.codeType = function()
+{
+    if (this.type == 'number') return 'float';
+
+    return this.type;
+};
