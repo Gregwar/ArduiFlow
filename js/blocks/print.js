@@ -25,16 +25,16 @@ blocks.register({
         }
 
         var n = 0;
-        var arg = 1;
         for (var k in parts) {
             var part = parts[k];
-            if (part == '%'+arg) {
-                if ((arg-1) in args) {
-                    env.loop += 'Serial.println('+args[arg-1].name+');\n';
+            if (part.length && part[0]=='%') {
+                var arg = parseInt(part.substr(1))-1;
+
+                if (arg in args) {
+                    env.loop += 'Serial.println('+args[arg].name+');\n';
                 } else {
                     env.loop += 'Serial.println("?");\n';
                 }
-                arg++;
             } else {
                 if (part != "") {
                     env.loop += 'Serial.println("'+part+'");\n';
