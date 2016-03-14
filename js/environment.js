@@ -50,8 +50,10 @@ Environment.prototype.getFieldVariable = function(block, field)
     return this.variables[name];
 };
 
-Environment.prototype.setEdgeValue = function(block, name, variable)
+Environment.prototype.setEdgeValue = function(edge, variable)
 {
+    var block = edge.block2;
+    var name = edge.connector2.name;
     var key = block.id+'/'+name.toLowerCase();
     var field = block.fields.getField(name);
 
@@ -61,7 +63,7 @@ Environment.prototype.setEdgeValue = function(block, name, variable)
             this.edgeValues[key] = {};
         }
 
-        this.edgeValues[key][field.index] = variable;
+        this.edgeValues[key][edge.connector2.index] = variable;
     } else {
         if (field.card[1] != 1) {
             // This is an * input
@@ -85,6 +87,6 @@ Environment.prototype.getInput = function(block, name)
     if (key in this.edgeValues) {
         return this.edgeValues[key];
     } else {
-        return 0;
+        return null;
     }
 };

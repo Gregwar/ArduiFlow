@@ -42,7 +42,7 @@
                             if (edge.block2 == block) {
                                 process(edge.block1);
 
-                                environment.setEdgeValue(edge.block2, edge.connector2.name, 
+                                environment.setEdgeValue(edge, 
                                         environment.getFieldVariable(edge.block1, edge.connector1.name));
                             }
                         }
