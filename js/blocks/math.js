@@ -88,8 +88,44 @@ blocks.register({
     generate: function(block, env) {
         var v = env.getFieldVariable(block, 'Min');
         v.type = env.guessType(block);
-        alert(v.type);
         var inputs = env.getInput(block, 'Values');
+        var first = true;
+
+        for (var k in inputs) {
+            if (!first) env.loop += 'if ('+inputs[k].name+' < '+v.name+')\n';
+            env.loop += v.name + '= '+inputs[k].name+';\n';
+            first = false;
+        }   
     }
 });
 
+blocks.register({
+    name: "Max",
+    family: "Math",
+    description: "Maximum",
+    size: "small",
+    fields: [
+        {
+            name: "Values",
+            attrs: "input",
+            type: "number"
+        },
+        {
+            name: "Max",
+            attrs: "output",
+            type: "number"
+        }
+    ],
+    generate: function(block, env) {
+        var v = env.getFieldVariable(block, 'Max');
+        v.type = env.guessType(block);
+        var inputs = env.getInput(block, 'Values');
+        var first = true;
+
+        for (var k in inputs) {
+            if (!first) env.loop += 'if ('+inputs[k].name+' > '+v.name+')\n';
+            env.loop += v.name + '= '+inputs[k].name+';\n';
+            first = false;
+        }   
+    }
+});

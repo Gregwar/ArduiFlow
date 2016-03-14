@@ -37,9 +37,12 @@ Environment.prototype.getType = function(type)
     return type;
 };
 
-Environment.prototype.getFieldVariable = function(block, field)
+Environment.prototype.getFieldVariable = function(block, fieldName)
 {
-    var field = block.fields.getField(field);
+    var field = block.fields.getField(fieldName);
+    if (field == null) {
+        throw "Unknown field "+fieldName;
+    }
     var type = this.getType(field.type);
     var name = 'field_'+block.id+'_'+field.name;
 
