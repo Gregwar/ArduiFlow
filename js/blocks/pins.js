@@ -86,9 +86,9 @@ blocks.register({
         var pin = block.getValue("Pin");
         var v = env.getFieldVariable(block, 'Output');
 
-        env.setup += 'pinMode(' + pin + ', INPUT_ANALOG);\n';
+        env.setup += 'pinMode(' + pin + ', INPUT);\n';
 
-        env.loop += v.name + ' = analogRead('+pin+')\n';
+        env.loop += v.name + ' = analogRead('+pin+');\n';
     }
 });
 
