@@ -1,5 +1,6 @@
 Environment = function()
 {
+    this.frequency = 100;
     this.loop = '';
     this.setup = '';
     this.variables = {};
@@ -9,21 +10,43 @@ Environment = function()
 Environment.prototype.getCode = function()
 {
     var code = '';
+
+    for (var k in this.variables) {
+        var variable = this.variables[k];
+        if (variable.name == k) {
+            code += variable.codeType()+' '+variable.name+';\n';
+        }
+    }
+    code += '\n';
     
     code += 'void setup() {\n';
+    code += 'Serial.begin(115200);\n';
     code += this.setup;
+    
+    for (var k in this.variables) {
+        var variable = this.variables[k];
+        if (variable.name == k && variable.defaultValue != undefined) {
+            code += variable.name + '= ' + variable.defaultValue+';\n';
+        }
+    }
+
     code += '};\n';
     code += '\n';
     
-    code += 'void loop() {\n';
-    for (var k in this.variables) {
-        var variable = this.variables[k];
-        code += variable.codeType()+' '+variable.name+';\n';
-    }
+    code += 'void tick() {\n';
     code += '\n';
     code += this.loop;
     code += '};\n';
     code += '\n';
+
+    code += 'void loop() {\n';
+    code += 'unsigned long int t;\n';
+    code += 'while (1) {\n';
+    code += 't = millis();\n';
+    code += 'tick();\n'
+    code += 'while ((millis()-t) < '+Math.round(1000/this.frequency)+');\n';
+    code += '}\n';
+    code += '}\n';
 
     return code;
 };
@@ -37,6 +60,17 @@ Environment.prototype.getType = function(type)
     return type;
 };
 
+Environment.prototype.getStateVariable = function(block, vname, type, defaultValue)
+{
+    var name = 'variable_'+block.id+'_'+vname;
+    if (!(name in this.variables)) {
+        this.variables[name] = new Variable(type, name, defaultValue);
+        this.variables[name].local = false;
+    }
+
+    return this.variables[name];
+};
+
 Environment.prototype.getFieldVariable = function(block, fieldName)
 {
     var field = block.fields.getField(fieldName);
@@ -47,10 +81,17 @@ Environment.prototype.getFieldVariable = function(block, fieldName)
     var name = 'field_'+block.id+'_'+field.name;
 
     if (!(name in this.variables)) {
-        this.variables[name] = new Variable(type, name);
+        this.variables[name] = new Variable(type, name, field.value);
     }
 
     return this.variables[name];
+};
+
+Environment.prototype.setOutput = function(block, fieldName, variable)
+{
+    var field = block.fields.getField(fieldName);
+    var name = 'field_'+block.id+'_'+field.name;
+    this.variables[name] = variable;
 };
 
 Environment.prototype.setEdgeValue = function(edge, variable)

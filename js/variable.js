@@ -1,7 +1,10 @@
-Variable = function(type, name)
+Variable = function(type, name, defaultValue)
 {
+    this.ref = false;
+    this.local = true;
     this.type = type;
     this.name = name;
+    this.defaultValue = defaultValue;
 };
 
 Variable.prototype.to = function(target)
@@ -12,7 +15,7 @@ Variable.prototype.to = function(target)
         result += '('+target+')';
     }
 
-    result += this.name;
+    result += '('+this.name+')';
     return result;
 };
 

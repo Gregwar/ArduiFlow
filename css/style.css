@@ -1,0 +1,79 @@
+body {
+    width:90%;
+    margin:auto;
+    font-family:Sans-serif;
+}
+
+#blocks {
+    width:100%;
+    height:500px;
+    margin:5px;
+    border:2px solid #eee;
+}
+
+h1 {
+    font-family:Serif;
+    text-align:center;
+    font-style:italic;
+    display:block;
+}
+
+h1:after, h1:before {
+    content:'~';
+    color:#eee;
+}
+
+a {
+    color:#c00;
+    font-size:12px;
+}
+
+a:hover {
+    color:black;
+}
+
+/**
+ * Extra CSS
+ */
+.blocks_js_editor .commentblock {
+    background-color:#feffc4;
+    color:#6f4e07;
+    font-style:italic;
+}
+
+.blocks_js_editor .commentblock .blockTitle {
+    background-color:#e8d92f;
+}
+
+.blocks_js_editor .menu_icon_type_Comment {
+    background-image:url('gfx/comment.gif');
+}
+
+.blocks_js_editor .menu_icon_family_Time {
+    background-image:url('gfx/time.png');
+}
+
+.blocks_js_editor .menu_icon_family_Output {
+    background-image:url('gfx/output.png');
+}
+
+.blocks_js_editor .menu_icon_family_Math {
+    background-image:url('gfx/math.png');
+}
+
+.blocks_js_editor .menu_icon_export {
+    background-image:url('gfx/export.png');
+}
+
+.blocks_js_editor .menu_icon_family_Image {
+    background-image:url('gfx/image.png');
+}
+
+button {
+    background-color:#eee;
+    border:0;
+    padding:5px;
+    color:#333;
+    border-radius:2px;
+    cursor:pointer;
+}

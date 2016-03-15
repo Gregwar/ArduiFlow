@@ -1,6 +1,6 @@
 blocks.register({
     name: "Digital input",
-    family: "IO",
+    family: "Pins",
     description: "Digital input pin",
     size: "small",
     fields: [
@@ -36,7 +36,7 @@ blocks.register({
 
 blocks.register({
     name: "Digital output",
-    family: "IO",
+    family: "Pins",
     description: "Digital output pin",
     size: "small",
     fields: [
@@ -65,7 +65,7 @@ blocks.register({
 
 blocks.register({
     name: "Analog input",
-    family: "IO",
+    family: "Pins",
     description: "Analog input",
     size: "small",
     fields: [
@@ -93,7 +93,7 @@ blocks.register({
 
 blocks.register({
     name: "PWM output",
-    family: "IO",
+    family: "Pins",
     description: "Analog output pin",
     fields: [
         {

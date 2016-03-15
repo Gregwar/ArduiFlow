@@ -10,6 +10,12 @@ blocks.register({
             defaultValue: "i=%1"
         },
         {
+            name: "Trigger",
+            card: "1",
+            attrs: "input",
+            type: "bool"
+        },
+        {
             name: "Args",
             attrs: "input",
             extensible: true,
@@ -17,29 +23,42 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var message = block.getValue('Message');
-        var parts = message.split(/(%[0-9])/);
-        var args = env.getInput(block, 'Args');
-        if (!args) {
-            args = {};
-        }
+        if (env.hasInput(block, 'Trigger')) {
+            env.loop += 'if ('+env.getInput(block, 'Trigger')+') {\n';
+            var message = block.getValue('Message');
+            var parts = message.split(/(%[0-9])/);
+            var args = env.getInput(block, 'Args');
+            if (!args) {
+                args = {};
+            }
 
-        var n = 0;
-        for (var k in parts) {
-            var part = parts[k];
-            if (part.length && part[0]=='%') {
-                var arg = parseInt(part.substr(1))-1;
+            var n = 0;
+            var prints = [];
+            for (var k in parts) {
+                var part = parts[k];
+                if (part.length && part[0]=='%') {
+                    var arg = parseInt(part.substr(1))-1;
 
-                if (arg in args) {
-                    env.loop += 'Serial.println('+args[arg].name+');\n';
+                    if (arg in args) {
+                        prints.push(args[arg].name);
+                    } else {
+                        prints.push("?");
+                    }
                 } else {
-                    env.loop += 'Serial.println("?");\n';
-                }
-            } else {
-                if (part != "") {
-                    env.loop += 'Serial.println("'+part+'");\n';
+                    if (part != "") {
+                        prints.push('"'+part+'"');
+                    }
                 }
             }
+            for (var k in prints) {
+                var part = prints[k];
+                if (k == prints.length-1) {
+                    env.loop += 'Serial.println('+part+');\n';
+                } else {
+                    env.loop += 'Serial.print('+part+');\n';
+                }
+            }
+            env.loop += '}\n';
         }
     }
 });

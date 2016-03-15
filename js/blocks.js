@@ -10,6 +10,7 @@
     include('logic.js');
     include('print.js');
     include('math.js');
+    include('signal.js');
 
     // Types compatibilities
     blocks.types.addCompatibility('bool', 'int');
@@ -58,7 +59,8 @@
                 process(block);
             }
 
-            alert(environment.getCode());
+            $('textarea').val(environment.getCode());
+            $('textarea').select();
         });
     });
 })();
