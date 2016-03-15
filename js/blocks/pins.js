@@ -48,6 +48,7 @@ blocks.register({
         },
         {
             name: "Input",
+            card: "1",
             attrs: "input",
             type: "bool"
         }
@@ -105,6 +106,7 @@ blocks.register({
         {
             name: "Duty",
             attrs: "input",
+            card: "1",
             type: "int"
         }
     ],

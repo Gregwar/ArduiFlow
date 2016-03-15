@@ -150,7 +150,6 @@ blocks.register({
         },
         {
             name: "Value",
-            card: "1",
             label: "Value",
             attrs: "output",
             type: "int"
@@ -166,7 +165,7 @@ blocks.register({
             env.loop += v.name + '+= '+i+';\n';
             if (block.getValue('Overflow')) {
                 env.loop += 'if ('+v.name+' > '+block.getValue('Overflow')+') {\n';
-                env.loop += v.name + '= '+block.getValue('Default')+'\n';
+                env.loop += v.name + '= '+block.getValue('Default')+';\n';
                 env.loop += '}\n';
             }
             env.loop += '}\n';
