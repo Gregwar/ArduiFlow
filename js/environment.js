@@ -84,12 +84,38 @@ Environment.prototype.getFieldVariable = function(block, fieldName)
         this.variables[name] = new Variable(type, name, field.value);
     }
 
-    return this.variables[name];
+    var variable = this.variables[name];
+    if (this.hasInput(block, fieldName)) {
+        var input = this.getInput(block, fieldName);
+        variable.type = input.type;
+        this.loop += variable.name + ' = ' + input.name +';\n';
+    } else {
+        if (variable.type == 'number' && field.value != undefined) {
+            if (this.isInt(field.value)) {
+                variable.type = 'int';
+                variable.defaultValue = Math.round(field.value);
+            }
+        }
+    }
+
+    return variable;
+};
+
+Environment.prototype.isInt = function(value)
+{
+    if (typeof(value) == 'string') {
+        if (value.indexOf('.') != -1) return false;
+    }
+    return (Math.abs(Math.round(value)-value) < 1e-6);
 };
 
 Environment.prototype.getConstant = function(value)
 {
-    return new Variable('number', value);
+    if (this.isInt(value)) {
+        return new Variable('int', Math.round(value));
+    } else {
+        return new Variable('float', value);
+    }
 };
 
 Environment.prototype.setOutput = function(block, fieldName, variable)
