@@ -1,41 +1,20 @@
 blocks.register({
-    name: "Integer",
+    name: "Constant",
     family: "Math",
-    description: "A constant integer",
+    description: "A constant value",
     size: "small",
     fields: [
         {
             name: "Value",
             attrs: "editable output",
             defaultValue: 1,
-            type: "int"
+            type: "all"
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Value');
-        env.loop += v.name + '= ' + block.getValue('Value')+';\n';
+        env.setOutput(block, 'Value', env.getConstant(block.getValue('Value')));
     }
 });
-
-blocks.register({
-    name: "Float",
-    family: "Math",
-    description: "A constant float",
-    size: "small",
-    fields: [
-        {
-            name: "Value",
-            attrs: "editable output",
-            defaultValue: 1.0,
-            type: "number"
-        }
-    ],
-    generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Value');
-        env.loop += v.name + '= ' + block.getValue('Value')+';\n';
-    }
-});
-
 
 blocks.register({
     name: "Sum",

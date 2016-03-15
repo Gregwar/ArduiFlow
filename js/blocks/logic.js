@@ -172,3 +172,47 @@ blocks.register({
         }
     }
 });
+
+blocks.register({
+    name: "Memory",
+    family: "Logic",
+    description: "Memory",
+    size: "small",
+    fields: [
+        {
+            name: "Trigger",
+            card: "1",
+            attrs: "input",
+            type: "bool"
+        },
+        {
+            name: "Input",
+            card: "1",
+            attrs: "input",
+            type: "all"
+        },
+        {
+            name: "Output",
+            attrs: "output editable",
+            defaultValue: 0,
+            type: "number"
+        }
+    ],
+    generate: function(block, env) {
+        if (env.hasInput(block, 'Input')) {
+            var i = env.getInput(block, 'Input');
+            var m = env.getStateVariable(block, 'memory', i.type, block.getValue('Output'));
+
+            if (env.hasInput(block, 'Trigger')) {
+                var t = env.getInput(block, 'Trigger');
+                env.loop += 'if ('+t.name+') {\n';
+                env.loop += m.name + ' = ' + i.name + ';\n';
+                env.loop += '}\n';
+            }
+
+            env.setOutput(block, 'Output', m);
+        } else {
+            env.setOutput(block, 'Output', env.getConstant(0));
+        }
+    }
+});

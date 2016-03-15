@@ -26,7 +26,7 @@ Environment.prototype.getCode = function()
     for (var k in this.variables) {
         var variable = this.variables[k];
         if (variable.name == k && variable.defaultValue != undefined) {
-            code += variable.name + '= ' + variable.defaultValue+';\n';
+            code += variable.name + ' = ' + variable.defaultValue+';\n';
         }
     }
 
@@ -85,6 +85,11 @@ Environment.prototype.getFieldVariable = function(block, fieldName)
     }
 
     return this.variables[name];
+};
+
+Environment.prototype.getConstant = function(value)
+{
+    return new Variable('number', value);
 };
 
 Environment.prototype.setOutput = function(block, fieldName, variable)
