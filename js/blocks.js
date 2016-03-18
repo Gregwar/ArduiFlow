@@ -31,6 +31,10 @@
 	blocks.menu.addAction('Export', function(blocks) {
 	    alert($.toJSON(blocks.export()));
 	}, 'export');
+	
+        blocks.menu.addAction('Clear', function(blocks) {
+            blocks.clear();
+	}, 'clear');
     });
 
     $('document').ready(function() {
