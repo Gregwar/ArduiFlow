@@ -60,7 +60,7 @@ Environment.prototype.getType = function(type)
     return type;
 };
 
-Environment.prototype.getStateVariable = function(block, vname, type, defaultValue)
+Environment.prototype.getVariable = function(block, vname, type, defaultValue)
 {
     var name = 'variable_'+block.id+'_'+vname;
     if (!(name in this.variables)) {
@@ -71,7 +71,7 @@ Environment.prototype.getStateVariable = function(block, vname, type, defaultVal
     return this.variables[name];
 };
 
-Environment.prototype.getFieldVariable = function(block, fieldName)
+Environment.prototype.getOutput = function(block, fieldName)
 {
     var field = block.fields.getField(fieldName);
     if (field == null) {
@@ -84,21 +84,7 @@ Environment.prototype.getFieldVariable = function(block, fieldName)
         this.variables[name] = new Variable(type, name, field.value);
     }
 
-    var variable = this.variables[name];
-    if (this.hasInput(block, fieldName)) {
-        var input = this.getInput(block, fieldName);
-        variable.type = input.type;
-        this.loop += variable.name + ' = ' + input.name +';\n';
-    } else {
-        if (variable.type == 'number' && field.value != undefined) {
-            if (this.isInt(field.value)) {
-                variable.type = 'int';
-                variable.defaultValue = Math.round(field.value);
-            }
-        }
-    }
-
-    return variable;
+    return this.variables[name];
 };
 
 Environment.prototype.isInt = function(value)
@@ -174,7 +160,8 @@ Environment.prototype.getInput = function(block, name)
     if (key in this.edgeValues) {
         return this.edgeValues[key];
     } else {
-        return null;
+        var field = block.fields.getField(name);
+        return this.getConstant(field.value);
     }
 };
 

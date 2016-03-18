@@ -24,7 +24,7 @@ blocks.register({
     ],
     generate: function(block, env) {
         var pin = block.getValue("Pin");
-        var v = env.getFieldVariable(block, 'Output');
+        var v = env.getOutput(block, 'Output');
 
         env.setup += 'digitalWrite(' + pin + ', ';
         env.setup += (block.getValue('Pull-up') ? 'HIGH' : 'LOW') + ');\n';
@@ -84,7 +84,7 @@ blocks.register({
     ],
     generate: function(block, env) {
         var pin = block.getValue("Pin");
-        var v = env.getFieldVariable(block, 'Output');
+        var v = env.getOutput(block, 'Output');
 
         env.setup += 'pinMode(' + pin + ', INPUT);\n';
 

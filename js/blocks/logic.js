@@ -24,7 +24,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Smaller');
+        var v = env.getOutput(block, 'Smaller');
 
         if (env.hasInput(block, 'A', 'B')) {
             env.loop += v.name + '= ' + env.getInput(block, 'A').name + '<' + env.getInput(block, 'B').name+';\n';
@@ -50,7 +50,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'And');
+        var v = env.getOutput(block, 'And');
         var inputs = env.getInput(block, 'Terms');
 
         if (inputs.length == 0) {
@@ -79,7 +79,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Or');
+        var v = env.getOutput(block, 'Or');
         var inputs = env.getInput(block, 'Terms');
 
         if (inputs.length == 0) {
@@ -109,7 +109,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'NA');
+        var v = env.getOutput(block, 'NA');
 
         if (env.hasInput(block, 'A')) {
             env.loop += v.name + '= !' + env.getInput(block, 'A')+';\n';
@@ -156,8 +156,8 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getStateVariable(block, 'counter', 'int', block.getValue('Default'));
-        var i = env.getFieldVariable(block, 'Increment');
+        var v = env.getVariable(block, 'counter', 'int', block.getValue('Default'));
+        var i = env.getInput(block, 'Increment');
         env.setOutput(block, 'Value', v);
 
         if (env.hasInput(block, 'Trigger')) {
@@ -201,7 +201,7 @@ blocks.register({
     generate: function(block, env) {
         if (env.hasInput(block, 'Input')) {
             var i = env.getInput(block, 'Input');
-            var m = env.getStateVariable(block, 'memory', i.type, block.getValue('Output'));
+            var m = env.getVariable(block, 'memory', i.type, block.getValue('Output'));
 
             if (env.hasInput(block, 'Trigger')) {
                 var t = env.getInput(block, 'Trigger');

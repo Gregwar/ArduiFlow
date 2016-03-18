@@ -34,7 +34,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Sum');
+        var v = env.getOutput(block, 'Sum');
         v.type = env.guessType(block);
         var inputs = env.getInput(block, 'Terms');
 
@@ -65,7 +65,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Min');
+        var v = env.getOutput(block, 'Min');
         v.type = env.guessType(block);
         var inputs = env.getInput(block, 'Values');
         var first = true;
@@ -96,7 +96,7 @@ blocks.register({
         }
     ],
     generate: function(block, env) {
-        var v = env.getFieldVariable(block, 'Max');
+        var v = env.getOutput(block, 'Max');
         v.type = env.guessType(block);
         var inputs = env.getInput(block, 'Values');
         var first = true;

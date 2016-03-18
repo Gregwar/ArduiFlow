@@ -11,6 +11,7 @@
     include('print.js');
     include('math.js');
     include('signal.js');
+    include('loop.js');
 
     // Types compatibilities
     blocks.types.addCompatibility('bool', 'int');
@@ -45,7 +46,7 @@
                                 process(edge.block1);
 
                                 environment.setEdgeValue(edge, 
-                                        environment.getFieldVariable(edge.block1, edge.connector1.name));
+                                        environment.getOutput(edge.block1, edge.connector1.name));
                             }
                         }
                     }
