@@ -14,10 +14,16 @@ blocks.register({
         {
             name: "Output",
             card: "1",
-            attrs: "output",
+            defaultValue: 1,
+            attrs: "output editable",
             type: "number"
         },
     ],
     generate: function(block, env) {
+        var input = env.getInput(block, 'Input');
+        var save = env.getVariable(block, 'save', input.type);
+        env.setOutput(block, 'Output', save);
+
+        env.loop += save.name + ' = ' + input.name + ';\n';
     }
 });
