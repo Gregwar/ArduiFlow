@@ -12,6 +12,7 @@
     include('math.js');
     include('signal.js');
     include('loop.js');
+    include('comment.js');
 
     // Types compatibilities
     blocks.types.addCompatibility('bool', 'int');

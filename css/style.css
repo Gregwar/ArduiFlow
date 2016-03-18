@@ -49,12 +49,28 @@ a:hover {
     background-image:url('gfx/comment.gif');
 }
 
+.blocks_js_editor .menu_icon_family_Loop {
+    background-image:url('gfx/loop.png');
+}
+
+.blocks_js_editor .menu_icon_family_Print {
+    background-image:url('gfx/print.png');
+}
+
+.blocks_js_editor .menu_icon_family_Logic {
+    background-image:url('gfx/logic.gif');
+}
+
+.blocks_js_editor .menu_icon_family_Pins {
+    background-image:url('gfx/pins.png');
+}
+
 .blocks_js_editor .menu_icon_family_Time {
     background-image:url('gfx/time.png');
 }
 
-.blocks_js_editor .menu_icon_family_Output {
-    background-image:url('gfx/output.png');
+.blocks_js_editor .menu_icon_family_Signal {
+    background-image:url('gfx/signal.png');
 }
 
 .blocks_js_editor .menu_icon_family_Math {
