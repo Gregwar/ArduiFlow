@@ -129,7 +129,7 @@ Environment.prototype.setOutput = function(block, fieldName, variable)
     this.variables[name] = variable;
 };
 
-Environment.prototype.setEdgeValue = function(edge, variable)
+Environment.prototype.setEdgeValue = function(edge)
 {
     var block = edge.block2;
     var name = edge.connector2.name;
@@ -142,7 +142,7 @@ Environment.prototype.setEdgeValue = function(edge, variable)
             this.edgeValues[key] = {};
         }
 
-        this.edgeValues[key][edge.connector2.index] = variable;
+        this.edgeValues[key][edge.connector2.index] = edge;
     } else {
         if (field.card[1] != 1) {
             // This is an * input
@@ -150,10 +150,10 @@ Environment.prototype.setEdgeValue = function(edge, variable)
                 this.edgeValues[key] = [];
             }
            
-            this.edgeValues[key].push(variable);
+            this.edgeValues[key].push(edge);
         } else {
             if (!(key in this.edgeValues)) {
-                this.edgeValues[key] = variable;
+                this.edgeValues[key] = edge;
             }
         }
     }
@@ -176,7 +176,16 @@ Environment.prototype.getInput = function(block, name)
     var key = block.id+'/'+name.toLowerCase();
 
     if (key in this.edgeValues) {
-        return this.edgeValues[key];
+        var edge = this.edgeValues[key];
+        if (!(edge instanceof Edge)) {
+            for (k in edge) {
+                var e = edge[k];
+                edge[k] = this.getOutput(e.block1, e.connector1.name, e.connector1.index);
+            }
+            return edge;
+        } else {
+            return this.getOutput(edge.block1, edge.connector1.name, edge.connector1.index);
+        }
     } else {
         var field = block.fields.getField(name);
         return this.getConstant(field.value);
@@ -191,14 +200,18 @@ Environment.prototype.guessType = function(block)
             if (edge.block2 == block) {
                 var key = block.id+'/'+edge.connector2.name.toLowerCase();
                 if (key in this.edgeValues) {
-                    var values = this.edgeValues[key];
+                    var edges = this.edgeValues[key];
 
-                    if (values instanceof Array || values instanceof Object) {
-                        for (var x in values) {
-                            if (values[x].type != 'int') return 'number';
+                    if (edges instanceof Array || edges instanceof Object) {
+                        for (var x in edges) {
+                            var edge = this.edgeValues[key];
+                            var value = this.getOutput(edge.block1, edge.connector1.name, edge.connector1.index);
+                            if (value.type != 'int') return 'number';
                         }
                     } else {
-                        if (values.type != 'int') return 'number';
+                        var edge = edges;
+                        var value = this.getOutput(edge.block1, edge.connector1.name, edge.connector1.index);
+                        if (value.type != 'int') return 'number';
                     }
                 }
             }

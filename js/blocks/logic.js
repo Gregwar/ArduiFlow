@@ -6,13 +6,13 @@ blocks.register({
     fields: [
         {
             name: "A",
-            card: "1",
+            card: 1,
             attrs: "input",
             type: "number"
         },
         {
             name: "B",
-            card: "1",
+            card: 1,
             attrs: "input",
             type: "number"
         },

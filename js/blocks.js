@@ -49,14 +49,16 @@
                         for (var n in block.edges[k]) {
                             var edge = block.edges[k][n];
                             if (edge.block2 == block) {
-                                process(edge.block1);
+                                if (!block.isLoopable()) {
+                                   process(edge.block1);
+                                }
 
-                                environment.setEdgeValue(edge, 
-                                        environment.getOutput(edge.block1, edge.connector1.name, edge.connector1.index));
+                                environment.setEdgeValue(edge);
                             }
                         }
                     }
 
+                    environment.loop += '// Code from block#'+block.id+'\n';
                     block.meta.generate(block, environment);
                 }
             };
