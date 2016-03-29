@@ -71,20 +71,38 @@ Environment.prototype.getVariable = function(block, vname, type, defaultValue)
     return this.variables[name];
 };
 
-Environment.prototype.getOutput = function(block, fieldName)
+Environment.prototype.getOutput = function(block, fieldName, index)
 {
     var field = block.fields.getField(fieldName);
     if (field == null) {
         throw "Unknown field "+fieldName;
     }
-    var type = this.getType(field.type);
-    var name = 'field_'+block.id+'_'+field.name;
+    if (field.isArray) {
+        var outputs = {};
+        for (var k=0; k<field.getDimension(block.fields); k++) {
+            var type = this.getType(field.type);
+            var name = 'field_'+block.id+'_'+field.name+'_'+k;
 
-    if (!(name in this.variables)) {
-        this.variables[name] = new Variable(type, name, field.value);
+            if (!(name in this.variables)) {
+                this.variables[name] = new Variable(type, name, field.value);
+            }
+            outputs[''+k] =  this.variables[name];
+        }
+        if (index != undefined) {
+            return outputs[index];
+        } else {
+            return outputs;
+        }
+    } else {
+        var type = this.getType(field.type);
+        var name = 'field_'+block.id+'_'+field.name;
+
+        if (!(name in this.variables)) {
+            this.variables[name] = new Variable(type, name, field.value);
+        }
+
+        return this.variables[name];
     }
-
-    return this.variables[name];
 };
 
 Environment.prototype.isInt = function(value)

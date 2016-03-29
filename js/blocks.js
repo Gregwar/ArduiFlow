@@ -52,7 +52,7 @@
                                 process(edge.block1);
 
                                 environment.setEdgeValue(edge, 
-                                        environment.getOutput(edge.block1, edge.connector1.name));
+                                        environment.getOutput(edge.block1, edge.connector1.name, edge.connector1.index));
                             }
                         }
                     }

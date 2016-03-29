@@ -165,3 +165,48 @@ blocks.register({
         }
     }
 });
+
+blocks.register({
+    name: "Gains",
+    family: "Signal",
+    description: "Gains",
+    size: "small",
+    fields: [
+        {
+            name: "Gains",
+            attrs: "editable",
+            type: "number[]",
+            defaultValue: [10],
+            hide: true
+        },
+        {
+            name: "Input",
+            label: "X#",
+            dimension: "Gains",
+            type: "number[]",
+            attrs: "input"
+        },
+        {
+            name: "Output",
+            dynamicLabel: function(block, x) {
+                return block.getValue('Gains')[x]+'*X'+(x+1);
+            },
+            dimension: "Gains",
+            type: "number[]",
+            attrs: "output"
+        },
+    ],
+    generate: function(block, env) {
+        if (env.hasInput(block, 'Input')) {
+            var input = env.getInput(block, 'Input');
+            var output = env.getOutput(block, 'Output');
+            var gains = block.getValue('Gains');
+
+            for (k in output) {
+                if (k in input) {
+                    env.loop += output[k] + ' = '+gains[k]+'*'+input[k]+';\n';
+                }
+            }
+        }
+    }
+});
