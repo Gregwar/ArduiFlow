@@ -11,6 +11,7 @@
     include('print.js');
     include('math.js');
     include('signal.js');
+    include('time.js');
     include('loop.js');
     include('comment.js');
 

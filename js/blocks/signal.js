@@ -73,3 +73,95 @@ blocks.register({
         env.loop += d.name + '++;\n';
     }
 });
+
+blocks.register({
+    name: "Sinus",
+    family: "Signal",
+    description: "Sinus output",
+    size: "small",
+    fields: [
+        {
+            name: "Frequency",
+            card: "1",
+            unit: "Hz",
+            attrs: "input editable",
+            defaultValue: 1,
+            type: "number"
+        },
+        {
+            name: "Amplitude",
+            card: "1",
+            attrs: "input editable",
+            defaultValue: 1,
+            type: "number"
+        },
+        {
+            name: "T",
+            type: "float",
+            attrs: "input"
+        },
+        {
+            name: "Sinus",
+            type: "float",
+            attrs: "output"
+        }
+    ],
+    generate: function(block, env) {
+        if (env.hasInput(block, 'T')) {
+            var t = env.getInput(block, 'T');
+        } else {
+            var t = env.getVariable(block, 't', 'float', 0);
+            env.loop += t + ' += '+(1.0/env.frequency)+';\n';
+        }
+
+        var sinus = env.getOutput(block, 'Sinus');
+        var amplitude = env.getInput(block, 'Amplitude');
+        var freq = env.getInput(block, 'Frequency');
+        env.loop += sinus + ' = sin('+t+'*2*M_PI*'+freq+')*'+amplitude+';\n';
+    }
+});
+
+blocks.register({
+    name: "EdgeDetector",
+    family: "Signal",
+    description: "Detects rising/falling edges",
+    fields: [
+        {
+            name: "Rising",
+            attrs: "input editable",
+            defaultValue: true,
+            type: "bool"
+        },
+        {
+            name: "Falling",
+            attrs: "input editable",
+            defaultValue: false,
+            type: "bool"
+        },
+        {
+            name: "Input",
+            type: "int",
+            attrs: "input"
+        },
+        {
+            name: "Output",
+            type: "bool",
+            attrs: "output"
+        }
+    ],
+    generate: function(block, env) {
+        if (env.hasInput(block, 'Input')) {
+            var rising = env.getInput(block, 'Rising');
+            var falling = env.getInput(block, 'Falling');
+            var last = env.getVariable(block, 'last', 'int', 0);
+            var input = env.getInput(block, 'Input');        
+            var output = env.getOutput(block, 'Output');
+
+            env.loop += output + ' = ';
+            env.loop += ' ('+rising+' && ('+input+' > '+last+'))';
+            env.loop += '|| ('+falling+' && ('+input+' < '+last+'))';
+            env.loop += ';\n';
+            env.loop += last + ' = ' + input + ';\n';
+        }
+    }
+});

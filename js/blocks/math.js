@@ -108,3 +108,50 @@ blocks.register({
         }   
     }
 });
+
+blocks.register({
+    name: "Bound",
+    family: "Math",
+    description: "Maximum",
+    size: "small",
+    fields: [
+        {
+            name: "Input",
+            attrs: "input",
+            type: "number",
+            card: "1"
+        },
+        {
+            name: "Output",
+            attrs: "output",
+            type: "number"
+        },
+        {
+
+            name: "Min",
+            attrs: "editable input",
+            type: "number",
+            defaultValue: 0
+        },
+        {
+            name: "Max",
+            attrs: "editable input",
+            type: "number",
+            defaultValue: 1
+        }
+    ],
+    generate: function(block, env) {
+        var min = env.getInput(block, 'Min');
+        var max = env.getInput(block, 'Max');
+        var output = env.getOutput(block, 'Output');
+
+        output = env.guessType(block);
+
+        if (env.hasInput(block, 'Input')) {
+            var input = env.getInput(block, 'Input');
+            env.loop += output + ' = ' + input + ';\n';
+            env.loop += 'if ('+output+' > '+max+') { '+output+' = '+max+';\n';
+            env.loop += 'if ('+output+' < '+min+') { '+output+' = '+min+';\n';
+        }
+    }
+});

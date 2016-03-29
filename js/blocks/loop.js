@@ -9,14 +9,14 @@ blocks.register({
             name: "Input",
             card: "1",
             attrs: "input",
-            type: "number"
+            type: "all"
         },
         {
             name: "Output",
             card: "1",
             defaultValue: 1,
             attrs: "output editable",
-            type: "number"
+            type: "all"
         },
     ],
     generate: function(block, env) {

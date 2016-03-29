@@ -35,65 +35,71 @@ a:hover {
 /**
  * Extra CSS
  */
-    .blocks_js_editor .commentblock {
-        background-color:#feffc4;
-        color:#6f4e07;
-        font-style:italic;
-    }
 
-    .blocks_js_editor .commentblock .blockTitle {
-        background-color:#e8d92f;
-    }
+.blocks_js_editor .commentblock {
+    background-color:#feffc4;
+    color:#6f4e07;
+    font-style:italic;
+}
 
-    .blocks_js_editor .menu_icon_type_Comment {
-        background-image:url('gfx/comment.gif');
-    }
+.blocks_js_editor .commentblock .blockTitle {
+    background-color:#e8d92f;
+}
 
-    .blocks_js_editor .menu_icon_family_Loop {
-        background-image:url('gfx/loop.png');
-    }
+.blocks_js_editor .menu_icon_type_Comment {
+    background-image:url('gfx/comment.gif');
+}
 
-    .blocks_js_editor .menu_icon_family_Print {
-        background-image:url('gfx/print.png');
-    }
+.blocks_js_editor .menu_icon_family_Loop {
+    background-image:url('gfx/loop.png');
+}
 
-    .blocks_js_editor .menu_icon_family_Logic {
-        background-image:url('gfx/logic.gif');
-    }
+.blocks_js_editor .menu_icon_family_Print {
+    background-image:url('gfx/print.png');
+}
 
-    .blocks_js_editor .menu_icon_family_Pins {
-        background-image:url('gfx/pins.png');
-    }
+.blocks_js_editor .menu_icon_family_Logic {
+    background-image:url('gfx/logic.gif');
+}
 
-    .blocks_js_editor .menu_icon_family_Time {
-        background-image:url('gfx/time.png');
-    }
+.blocks_js_editor .menu_icon_family_Pins {
+    background-image:url('gfx/pins.png');
+}
 
-    .blocks_js_editor .menu_icon_family_Signal {
-        background-image:url('gfx/signal.png');
-    }
+.blocks_js_editor .menu_icon_family_Time {
+    background-image:url('gfx/time.png');
+}
 
-    .blocks_js_editor .menu_icon_family_Math {
-        background-image:url('gfx/math.png');
-    }
+.blocks_js_editor .menu_icon_family_Signal {
+    background-image:url('gfx/signal.png');
+}
 
-    .blocks_js_editor .menu_icon_clear {
-        background-image:url('gfx/clear.png');
-    }
+.blocks_js_editor .menu_icon_family_Math {
+    background-image:url('gfx/math.png');
+}
 
-    .blocks_js_editor .menu_icon_export {
-        background-image:url('gfx/export.png');
-    }
+.blocks_js_editor .menu_icon_clear {
+    background-image:url('gfx/clear.png');
+}
 
-    .blocks_js_editor .menu_icon_family_Image {
-        background-image:url('gfx/image.png');
-    }
+.blocks_js_editor .menu_icon_export {
+    background-image:url('gfx/export.png');
+}
 
-    button {
-        background-color:#eee;
-        border:0;
-        padding:5px;
-        color:#333;
-        border-radius:2px;
-        cursor:pointer;
-    }
+.blocks_js_editor .menu_icon_family_Image {
+    background-image:url('gfx/image.png');
+}
+
+button {
+    background-color:#eee;
+    border:0;
+    padding:5px;
+    color:#333;
+    border-radius:2px;
+    cursor:pointer;
+}
+
+textarea {
+    width:100%;
+    height:100px;
+}
