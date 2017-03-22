@@ -36,11 +36,11 @@ blocks.register({
     generate: function(block, env) {
         var v = env.getOutput(block, 'Sum');
         v.type = env.guessType(block);
-        var inputs = env.getInput(block, 'Terms');
 
-        if (inputs.length == 0) {
+        if (!env.hasInput(block, 'Terms')) {
             env.loop += v.name + '= 0;\n';
         } else {
+            var inputs = env.getInput(block, 'Terms');
             env.loop += v.name + '= '+inputs.join(' + ')+';\n';
         }
     }

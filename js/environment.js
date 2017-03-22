@@ -1,5 +1,7 @@
 Environment = function()
 {
+    // XXX: This should be configurable
+    this.baudrate = 115200;
     this.frequency = 100;
     this.loop = '';
     this.setup = '';
@@ -20,7 +22,7 @@ Environment.prototype.getCode = function()
     code += '\n';
     
     code += 'void setup() {\n';
-    code += 'Serial.begin(115200);\n';
+    code += 'Serial.begin('+this.frequency+');\n';
     code += this.setup;
     
     for (var k in this.variables) {
@@ -167,7 +169,7 @@ Environment.prototype.hasInput = function(block)
             return false;
         }
     }
-    
+   
     return true;
 };
 
@@ -204,7 +206,7 @@ Environment.prototype.guessType = function(block)
 
                     if (edges instanceof Array || edges instanceof Object) {
                         for (var x in edges) {
-                            var edge = this.edgeValues[key];
+                            var edge = edges[x];
                             var value = this.getOutput(edge.block1, edge.connector1.name, edge.connector1.index);
                             if (value.type != 'int') return 'number';
                         }
