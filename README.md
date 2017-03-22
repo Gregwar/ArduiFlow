@@ -3,7 +3,7 @@
 This is an environment to program your Arduino board based on a dataflow
 editor. This is based on the [blocks.js](https://github.com/Gregwar/blocks.js) project.
 
-[See the online live example here.](https://gregwar.com/arduiflow/)
+[See the online live example here.](http://gregwar.com/arduiflow/)
 
 ## Setting up
 
