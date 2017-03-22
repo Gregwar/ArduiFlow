@@ -12,3 +12,9 @@ Simply clone this repository and clone blocks.js:
     git clone https://github.com/Gregwar/blocks.js
 
 Then open `index.html`.
+
+## LICENSE
+
+This is under the CC-BY-NC license:
+https://creativecommons.org/licenses/by-nc/2.0/
+
