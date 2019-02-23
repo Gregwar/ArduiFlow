@@ -22,7 +22,7 @@ Environment.prototype.getCode = function()
     code += '\n';
     
     code += 'void setup() {\n';
-    code += 'Serial.begin('+this.frequency+');\n';
+    code += 'Serial.begin('+this.baudrate+');\n';
     code += this.setup;
     
     for (var k in this.variables) {
